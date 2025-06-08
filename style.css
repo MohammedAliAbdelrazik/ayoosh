@@ -98,7 +98,7 @@ button {
 .download-btn {
   display: inline-block;
   margin-bottom: 20px;
-  background-color: 00cc41ec;
+  background-color: #00cc88;
   color: white;
   padding: 10px 20px;
   border-radius: 6px;
@@ -107,7 +107,7 @@ button {
 }
 
 .download-btn:hover {
-  background-color:#00a351da;
+  background-color:#00b376;
 }
 
 .form-container {
