@@ -6,31 +6,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>مذكرة أيوش - تسجيل إنجازات</title>
   <link rel="stylesheet" href="style.css" />
+  
+
 </head>
 <body>
 
   <div class="container">
-    <h1>مذكرة </h1>
+    <h1>مذكرة أيوش</h1>
 
-    <a href="Ayooh_Daily.pdf" download class="download-btn">↓ تحميل مذكرة  PDF</a>
+    <a href="Ayoosh_Daily.pdf" download class="download-btn">↓ تحميل مذكرة أيوش PDF</a>
 
     <button id="toggleFormBtn" class="primary-btn">📝 سجل إنجاز</button>
-    <button id="showAchievementsBtn" class="secondary-btn">📋 عرض الإنجازات</button>
-
+    <div style="position: relative; display: inline-block;">
+      <button id="showAchievementsBtn" class="secondary-btn">📋 عرض الإنجازات</button>
+      <span id="badge" class="badge hidden">0</span>
+    </div>
     
-    <div id="formContainer" class="form-container hidden">
+    <div id="formContainer" class="form-container">
+
       <textarea id="achievementText" placeholder="اكتب إنجازك هنا... بالعربية أو بالإنجليزية"></textarea>
+      <label for="imageInput" class="custom-file-label"> أضف صورة أو ملف</label>
       <input type="file" id="imageInput" accept="image/*" />
+
       <button type="button" id="submitBtn" class="submit-btn">✔ سجل</button>
     </div>
 
-   
-    <div id="achievementSection" class="hidden">
+    <div id="achievementSection">
       <h2>قائمة الإنجازات</h2>
       <div id="achievementList"></div>
       <button id="clearAllBtn" class="danger-btn hidden">🗑 حذف جميع الإنجازات</button>
     </div>
   </div>
+
+  
+  <audio id="clickSound" src="click.mp3" preload="auto"></audio>
 
   <script src="script.js"></script>
 </body>
