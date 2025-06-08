@@ -152,8 +152,7 @@ button {
   background-color: #c94040;
 }
 
-/* حذف خاصية display:none من hidden */
-/* واستخدام max-height و transition بدلاً منها */
+
 
 #achievementSection {
   max-height: 0;
