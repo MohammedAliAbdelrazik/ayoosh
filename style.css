@@ -105,15 +105,25 @@ button {
   border-radius: 6px;
   text-decoration: none;
   font-size: 16px;
+  transition: all 0.3s ease-in-out;
+
 }
 
 .download-btn:hover {
   background-color: #00b376;
 }
 
-.form-container {
+#formContainer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1s ease;
   margin-top: 20px;
 }
+
+#formContainer.open {
+  max-height: 1000px; /* تقدر تزودها لو النموذج أطول */
+}
+
 
 .achievement-item {
   background-color: #f9f9f9;
@@ -162,4 +172,51 @@ button {
 
 #achievementSection.open {
   max-height: 1000px; 
+}
+.badge {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 12px;
+  position: absolute;
+  top: 0px;
+  left: -3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  padding: 0;
+  z-index: 10;
+}
+
+.custom-file-label {
+  display: inline-block;
+  background-color: #eeeeee;
+  color: #333;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-file-label:hover {
+  background-color: #dddddd;
+}
+
+
+
+#showAchievementsBtn {
+  position: relative;
+}
+
+.hidden {
+  display: none;
+}
+
+#imageInput {
+  display: none;
 }
