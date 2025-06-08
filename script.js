@@ -1,12 +1,7 @@
 // عرض أو إخفاء النموذج
 document.getElementById("toggleFormBtn").addEventListener("click", () => {
   const form = document.getElementById("formContainer");
-  form.classList.toggle("open");
-  if (!form.classList.contains("open")) {
-    setTimeout(() => form.style.maxHeight = "0", 500);
-  } else {
-    form.style.maxHeight = "1000px"; // حسب طول النموذج
-  }
+  form.classList.toggle("hidden");
 });
 
 // عرض أو إخفاء الإنجازات مع تأثير سلس
