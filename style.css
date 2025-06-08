@@ -108,7 +108,7 @@ button {
 }
 
 .download-btn:hover {
-  background-color:#00b376;
+  background-color: #00b376;
 }
 
 .form-container {
@@ -152,6 +152,15 @@ button {
   background-color: #c94040;
 }
 
-.hidden {
-  display: none;
+/* حذف خاصية display:none من hidden */
+/* واستخدام max-height و transition بدلاً منها */
+
+#achievementSection {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1s ease;
+}
+
+#achievementSection.open {
+  max-height: 1000px; 
 }
