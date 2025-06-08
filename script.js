@@ -1,10 +1,10 @@
-// عرض أو إخفاء النموذج
+
 document.getElementById("toggleFormBtn").addEventListener("click", () => {
   const form = document.getElementById("formContainer");
   form.classList.toggle("hidden");
 });
 
-// عرض أو إخفاء الإنجازات مع تأثير سلس
+
 document.getElementById("showAchievementsBtn").addEventListener("click", () => {
   const section = document.getElementById("achievementSection");
   const clearBtn = document.getElementById("clearAllBtn");
@@ -21,7 +21,7 @@ document.getElementById("showAchievementsBtn").addEventListener("click", () => {
   }
 });
 
-// تحميل الإنجازات المحفوظة
+
 window.addEventListener("DOMContentLoaded", () => {
   const saved = localStorage.getItem("achievements");
   if (saved) {
@@ -33,7 +33,7 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// تسجيل إنجاز جديد
+
 document.getElementById("submitBtn").addEventListener("click", () => {
   const text = document.getElementById("achievementText").value.trim();
   const imageInput = document.getElementById("imageInput");
@@ -67,7 +67,7 @@ document.getElementById("submitBtn").addEventListener("click", () => {
   document.getElementById("imageInput").value = "";
 });
 
-// حفظ الإنجاز
+
 function saveAndDisplayAchievement(achievement) {
   let achievements = JSON.parse(localStorage.getItem("achievements")) || [];
   achievements.unshift(achievement);
@@ -75,7 +75,7 @@ function saveAndDisplayAchievement(achievement) {
   renderAchievements();
 }
 
-// إضافة إنجاز إلى الصفحة
+
 function addAchievementToPage({ text, date, image }, index) {
   const list = document.getElementById("achievementList");
 
@@ -97,7 +97,7 @@ function addAchievementToPage({ text, date, image }, index) {
     item.appendChild(img);
   }
 
-  // زر الحذف الفردي
+
   const deleteBtn = document.createElement("button");
   deleteBtn.textContent = "🗑 حذف هذا الإنجاز";
   deleteBtn.className = "delete-btn";
@@ -109,7 +109,7 @@ function addAchievementToPage({ text, date, image }, index) {
   list.appendChild(item);
 }
 
-// حذف إنجاز واحد
+
 function deleteAchievement(index) {
   let achievements = JSON.parse(localStorage.getItem("achievements")) || [];
   achievements.splice(index, 1);
@@ -117,7 +117,7 @@ function deleteAchievement(index) {
   renderAchievements();
 }
 
-// حذف الكل
+
 document.getElementById("clearAllBtn").addEventListener("click", () => {
   const confirmDelete = confirm("هل أنت متأكد أنك تريد حذف جميع الإنجازات؟");
   if (confirmDelete) {
@@ -126,7 +126,7 @@ document.getElementById("clearAllBtn").addEventListener("click", () => {
   }
 });
 
-// إعادة عرض كل الإنجازات
+
 function renderAchievements() {
   const list = document.getElementById("achievementList");
   list.innerHTML = "";
