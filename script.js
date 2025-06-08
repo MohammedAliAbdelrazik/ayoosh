@@ -1,19 +1,27 @@
 // عرض أو إخفاء النموذج
 document.getElementById("toggleFormBtn").addEventListener("click", () => {
   const form = document.getElementById("formContainer");
-  form.classList.toggle("hidden");
+  form.classList.toggle("open");
+  if (!form.classList.contains("open")) {
+    setTimeout(() => form.style.maxHeight = "0", 500);
+  } else {
+    form.style.maxHeight = "1000px"; // حسب طول النموذج
+  }
 });
 
-// عرض أو إخفاء الإنجازات
+// عرض أو إخفاء الإنجازات مع تأثير سلس
 document.getElementById("showAchievementsBtn").addEventListener("click", () => {
   const section = document.getElementById("achievementSection");
-  section.classList.toggle("hidden");
-  if (section.classList.contains("hidden")) {
-    document.getElementById("clearAllBtn").classList.add("hidden");
+  const clearBtn = document.getElementById("clearAllBtn");
+
+  if (section.classList.contains("open")) {
+    section.classList.remove("open");
+    setTimeout(() => clearBtn.classList.add("hidden"), 500);
   } else {
+    section.classList.add("open");
     const achievements = JSON.parse(localStorage.getItem("achievements")) || [];
     if (achievements.length > 0) {
-      document.getElementById("clearAllBtn").classList.remove("hidden");
+      clearBtn.classList.remove("hidden");
     }
   }
 });
