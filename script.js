@@ -1,7 +1,6 @@
-
 document.getElementById("toggleFormBtn").addEventListener("click", () => {
   const form = document.getElementById("formContainer");
-  form.classList.toggle("hidden");
+  form.classList.toggle("open");
 });
 
 
@@ -21,20 +20,22 @@ document.getElementById("showAchievementsBtn").addEventListener("click", () => {
   }
 });
 
-
 window.addEventListener("DOMContentLoaded", () => {
-  const saved = localStorage.getItem("achievements");
-  if (saved) {
-    const achievements = JSON.parse(saved);
-    achievements.forEach((achievement, index) => addAchievementToPage(achievement, index));
-    if (achievements.length > 0) {
-      document.getElementById("clearAllBtn").classList.remove("hidden");
-    }
+  renderAchievements();
+});
+
+document.getElementById("achievementText").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault(); // عشان ميعملش سطر جديد
+    document.getElementById("submitBtn").click(); // اضغط زر سجل
   }
 });
 
 
 document.getElementById("submitBtn").addEventListener("click", () => {
+  
+  document.getElementById("clickSound").play();
+
   const text = document.getElementById("achievementText").value.trim();
   const imageInput = document.getElementById("imageInput");
 
@@ -67,7 +68,6 @@ document.getElementById("submitBtn").addEventListener("click", () => {
   document.getElementById("imageInput").value = "";
 });
 
-
 function saveAndDisplayAchievement(achievement) {
   let achievements = JSON.parse(localStorage.getItem("achievements")) || [];
   achievements.unshift(achievement);
@@ -75,40 +75,50 @@ function saveAndDisplayAchievement(achievement) {
   renderAchievements();
 }
 
-
-function addAchievementToPage({ text, date, image }, index) {
+function renderAchievements() {
   const list = document.getElementById("achievementList");
+  list.innerHTML = "";
+  const achievements = JSON.parse(localStorage.getItem("achievements")) || [];
 
-  const item = document.createElement("div");
-  item.className = "achievement-item";
+  achievements.forEach((ach, i) => {
+    const item = document.createElement("div");
+    item.className = "achievement-item";
 
-  const paragraph = document.createElement("p");
-  paragraph.textContent = text;
-  item.appendChild(paragraph);
+    const paragraph = document.createElement("p");
+    paragraph.textContent = ach.text;
+    item.appendChild(paragraph);
 
-  const timeStamp = document.createElement("div");
-  timeStamp.className = "timestamp";
-  timeStamp.textContent = `📅 تم التسجيل بتاريخ: ${date}`;
-  item.appendChild(timeStamp);
+    const timeStamp = document.createElement("div");
+    timeStamp.className = "timestamp";
+    timeStamp.textContent = `📅 تم التسجيل بتاريخ: ${ach.date}`;
+    item.appendChild(timeStamp);
 
-  if (image) {
-    const img = document.createElement("img");
-    img.src = image;
-    item.appendChild(img);
-  }
+    if (ach.image) {
+      const img = document.createElement("img");
+      img.src = ach.image;
+      item.appendChild(img);
+    }
 
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "🗑 حذف هذا الإنجاز";
+    deleteBtn.className = "delete-btn";
+    deleteBtn.addEventListener("click", () => {
+      deleteAchievement(i);
+    });
 
-  const deleteBtn = document.createElement("button");
-  deleteBtn.textContent = "🗑 حذف هذا الإنجاز";
-  deleteBtn.className = "delete-btn";
-  deleteBtn.addEventListener("click", () => {
-    deleteAchievement(index);
+    item.appendChild(deleteBtn);
+    list.appendChild(item);
   });
 
-  item.appendChild(deleteBtn);
-  list.appendChild(item);
-}
+  const clearBtn = document.getElementById("clearAllBtn");
+  if (achievements.length > 0) {
+    clearBtn.classList.remove("hidden");
+  } else {
+    clearBtn.classList.add("hidden");
+  }
 
+  updateBadge(); 
+}
 
 function deleteAchievement(index) {
   let achievements = JSON.parse(localStorage.getItem("achievements")) || [];
@@ -116,7 +126,6 @@ function deleteAchievement(index) {
   localStorage.setItem("achievements", JSON.stringify(achievements));
   renderAchievements();
 }
-
 
 document.getElementById("clearAllBtn").addEventListener("click", () => {
   const confirmDelete = confirm("هل أنت متأكد أنك تريد حذف جميع الإنجازات؟");
@@ -126,17 +135,15 @@ document.getElementById("clearAllBtn").addEventListener("click", () => {
   }
 });
 
-
-function renderAchievements() {
-  const list = document.getElementById("achievementList");
-  list.innerHTML = "";
+function updateBadge() {
+  const badge = document.getElementById("badge");
   const achievements = JSON.parse(localStorage.getItem("achievements")) || [];
-  achievements.forEach((ach, i) => addAchievementToPage(ach, i));
 
-  const clearBtn = document.getElementById("clearAllBtn");
   if (achievements.length > 0) {
-    clearBtn.classList.remove("hidden");
+    badge.textContent = achievements.length;
+    badge.classList.remove("hidden");
   } else {
-    clearBtn.classList.add("hidden");
+    badge.textContent = "";
+    badge.classList.add("hidden");
   }
 }
